@@ -50,6 +50,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Role::class, 'role', 'roleId'); 
     }
 
+       public function student_data()
+    {
+        return $this->hasOne(Student::class, 'userId', 'id');
+    }
+
     public function hospital_admins()
     {
         return $this->belongsTo(HospitalStaff::class, 'id', 'userId'); 
