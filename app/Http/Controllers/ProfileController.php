@@ -19,7 +19,7 @@ class ProfileController extends Controller
     public function getProfile()
     {
         $user_session = Auth::user();
-        $user = User::where($user_session->id)->with('student_data')->first();
+        $user = User::where('id', $user_session->id)->with('student_data')->first();
         return response()->json([
             'id' => $user->id,
             'firstName' => $user->firstName,
