@@ -23,7 +23,7 @@ class PaymentsController extends Controller
 {
     public function index()
     {
-        $payments = Payments::with('course')->get();
+        $payments = Payments::with('course')->where('userId', Auth::id())->get();
         return response()->json($payments);
     }
 

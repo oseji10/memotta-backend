@@ -19,6 +19,7 @@ class Payments extends Model
         'transactionReference',
         'paymentMethod',
         'paymentStatus',
+        'userId',
     ];
     protected $primaryKey = 'paymentId';
 
