@@ -77,6 +77,8 @@ Route::post('/membership-application', [MembershipController::class, 'store']);
         // Application routes
     Route::get('/student/courses', [StudentsController::class, 'getStudentCourses']);
     Route::get('/my-payments', [PaymentsController::class, 'index']);
+    Route::get('/payments/all', [PaymentsController::class, 'allPayments']);
+    Route::put('/payment/confirm', [PaymentsController::class, 'update']);
 
     Route::get('/user/profile', [ProfileController::class, 'getProfile']);
     Route::put('/user/profile', [ProfileController::class, 'updateProfile']);

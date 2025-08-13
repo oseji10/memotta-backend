@@ -27,6 +27,12 @@ class PaymentsController extends Controller
         return response()->json($payments);
     }
 
+      public function allPayments()
+    {
+        $payments = Payments::with('users', 'course')->get();
+        return response()->json($payments);
+    }
+
    
     /**
      * Handle mobile transfer payment notification
@@ -357,4 +363,21 @@ private function sendWelcomeEmail($user)
         // Send email to user confirming enrollment
         // You would use Laravel's notification system here
     }
+
+      public function update(Request $request)
+{
+
+
+    $payment = Payments::where('paymentId', $request->paymentId)->first();
+    if (!$payment) {
+        return response()->json(['message' => 'Payment not found'], 404);
+    }
+
+    $payment->update(['paymentStatus' => "PAID"]);
+    
+
+    return response()->json([
+        'message' => "Payment updated successfully",
+    ], 200);
+}
 }

@@ -28,4 +28,8 @@ class Payments extends Model
         return $this->belongsTo(Courses::class, 'courseId', 'courseId');
     }
     
+     public function users()
+    {
+        return $this->belongsTo(User::class, 'userId', 'id');
+    }
 }
