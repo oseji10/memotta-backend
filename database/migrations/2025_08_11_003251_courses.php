@@ -18,12 +18,15 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('cost')->nullable();
             $table->string('duration')->nullable();
-            $table->string('instructor')->nullable();
-            $table->string('status')->nullable();
+            $table->unsignedBigInteger('instructor')->nullable();
+            $table->unsignedBigInteger('addedBy')->nullable();
+            $table->string('status')->default('active');
             
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('instructor')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('addedBy')->references('id')->on('users')->onDelete('cascade');
         
 
         });

@@ -21,7 +21,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HubsController;
 use App\Http\Controllers\MSPsController;
 use App\Http\Controllers\StudentsController;
-use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\CohortsController;
 
@@ -51,8 +51,8 @@ use App\Http\Controllers\CohortsController;
     Route::get('/jamb', [JAMBController::class, 'index']);
 
     Route::get('/courses/available', [CohortsController::class, 'index']);
-
-Route::post('/membership-application', [MembershipController::class, 'store']);
+    
+    Route::post('/membership-application', [MembershipController::class, 'store']);
     // Protected routes with JWT authentication
     Route::get('/membership-application', [MembershipController::class, 'index']);
     Route::get('/roles', [RolesController::class, 'index']);
@@ -73,8 +73,21 @@ Route::post('/membership-application', [MembershipController::class, 'store']);
                 'message' => 'User authenticated successfully',
             ]);
         });
-
+        
         // Application routes
+        Route::get('/instructors', [UsersController::class, 'instructors']);
+
+        Route::get('/courses', [CoursesController::class, 'index']);
+        Route::post('/courses', [CoursesController::class, 'store']);
+        Route::put('/courses/{id}', [CoursesController::class, 'update']);
+        Route::delete('/courses/{id}', [CoursesController::class, 'destroy']);
+        Route::patch('/courses/{id}/status', [CoursesController::class, 'changeStatus']);
+        Route::get('/courses/{id}/modules', [CoursesController::class, 'courseModules']);
+        Route::post('/courses/modules', [CoursesController::class, 'addModules']);
+        Route::post('/courses/resources', [CoursesController::class, 'addResources']);
+        Route::get('/courses/{id}/resources', [CoursesController::class, 'getResources']);
+
+
     Route::get('/student/courses', [StudentsController::class, 'getStudentCourses']);
     Route::get('/my-payments', [PaymentsController::class, 'index']);
     Route::get('/payments/all', [PaymentsController::class, 'allPayments']);

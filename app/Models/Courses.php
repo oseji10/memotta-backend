@@ -15,6 +15,8 @@ class Courses extends Model
         'image',
         'cost',
         'status',
+        'instructor',
+        'addedBy',
     ];
 
 
@@ -30,7 +32,12 @@ class Courses extends Model
 
     public function course_modules()
     {
-        return $this->hasMany(CourseModules::class, 'courseId', 'courseId');
+        return $this->belongsTo(CourseModules::class, 'courseId', 'courseId');
+    }
+
+    public function instructor()
+    {
+        return $this->belongsTo(User::class, 'instructor', 'id');
     }
     
 }

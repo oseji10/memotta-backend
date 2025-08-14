@@ -23,6 +23,13 @@ class UsersController extends Controller
        
     }
 
+     public function instructors()
+    {
+        $users = User::where('role', 3)->get();
+        return response()->json($users);
+       
+    }
+
   public function supervisors()
 {
     $users = User::with('staff.staff_type')
