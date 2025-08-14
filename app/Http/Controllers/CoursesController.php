@@ -90,7 +90,7 @@ class CoursesController extends Controller
     {
        $validated = $request->validate([
         'courseName' => 'nullable|string|max:255',
-        'description' => 'nullable|string|max:255',
+        'description' => 'nullable|string',
         'cost' => 'nullable|string|max:255',
         'duration' => 'nullable|string|max:255',
         'instructor' => 'nullable|max:255',
