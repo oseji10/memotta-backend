@@ -43,12 +43,12 @@ class HubsController extends Controller
     
     return response()->json($hubs);
 }
-    // public function index()
-    // {
-    //     $hubs = Hubs::with('states', 'lgas')->get();
-    //     return response()->json($hubs);
+    public function activeHubs()
+    {
+        $hubs = Hubs::with('states', 'lgas')->get();
+        return response()->json($hubs);
        
-    // }
+    }
 
      public function getLgasByState(Request $request)
     {

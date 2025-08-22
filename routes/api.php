@@ -104,6 +104,13 @@ use App\Http\Controllers\CohortsController;
     Route::get('/resources/stream/{resource}', [ResourceController::class, 'stream'])
         ->name('resources.stream');
 
+
+        
+        Route::get('/resources/{id}/download', [CoursesController::class, 'downloadResource']);
+
+        Route::delete('/resources/delete/{id}', [CoursesController::class, 'destroyResource']);
+        
+
 });
         
     

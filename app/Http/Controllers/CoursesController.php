@@ -9,6 +9,8 @@ use App\Models\Resources;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class CoursesController extends Controller
 {
@@ -66,6 +68,7 @@ class CoursesController extends Controller
         $course = Courses::where('courseId', $request->courseId)->first();
         if ($request->hasFile('file')) {
             $validated['title'] = $course->courseName;
+            $validated['type'] = $request->type;
             $validated['filePath'] = $request->file('file')->store('file', 'public');
         }
 
@@ -156,5 +159,35 @@ class CoursesController extends Controller
     }
 
   
-   
+    public function destroyResource($id)
+    {
+        $resource = Resources::where('resourceId', $id)->first();
+        if (!$resource) {
+            return response()->json(['message' => 'Course Material not found'], 404);
+        }
+
+        $resource->delete();
+        return response()->json(['message' => 'Course Material deleted successfully'], 200);
+    }
+
+
+public function downloadResource($id)
+{
+    $resource = Resources::findOrFail($id);
+
+    if (!$resource->filePath || !Storage::disk('public')->exists($resource->filePath)) {
+        return response()->json([
+            'message' => 'File not found.'
+        ], Response::HTTP_NOT_FOUND);
+    }
+
+    return Storage::disk('public')->download($resource->filePath, basename($resource->filePath));
+}
+
+
+
+      
+    
+
+      
 }

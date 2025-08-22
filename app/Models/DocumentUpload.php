@@ -9,7 +9,7 @@ class DocumentUpload extends Model
     protected $table = 'documents';
     protected $fillable = [
         'documentId',
-        'documentType',
+        'type',
         'studentId',
         'url',
         'status',

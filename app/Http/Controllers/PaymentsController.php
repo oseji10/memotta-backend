@@ -29,7 +29,7 @@ class PaymentsController extends Controller
 
       public function allPayments()
     {
-        $payments = Payments::with('users', 'course')->get();
+        $payments = Payments::with('users', 'course')->orderBy('created_at', 'desc')->get();
         return response()->json($payments);
     }
 
