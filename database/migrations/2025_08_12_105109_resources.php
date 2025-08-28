@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('courseId')->nullable();
             $table->string('title')->nullable();
             $table->string('type')->nullable();
+            $table->string('category')->nullable();
             $table->string('filePath')->nullable();
             $table->string('externalUrl')->nullable();
            

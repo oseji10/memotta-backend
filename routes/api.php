@@ -8,7 +8,7 @@ use App\Http\Controllers\BeneficiariesController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LgaController;
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MinistryController;
@@ -88,20 +88,20 @@ use App\Http\Controllers\CohortsController;
         Route::get('/courses/{id}/resources', [CoursesController::class, 'getResources']);
 
 
-    Route::get('/student/courses', [StudentsController::class, 'getStudentCourses']);
-    Route::get('/my-payments', [PaymentsController::class, 'index']);
-    Route::get('/payments/all', [PaymentsController::class, 'allPayments']);
-    Route::put('/payment/confirm', [PaymentsController::class, 'update']);
+        Route::get('/student/courses', [StudentsController::class, 'getStudentCourses']);
+        Route::get('/my-payments', [PaymentsController::class, 'index']);
+        Route::get('/payments/all', [PaymentsController::class, 'allPayments']);
+        Route::put('/payment/confirm', [PaymentsController::class, 'update']);
 
-    Route::get('/user/profile', [ProfileController::class, 'getProfile']);
-    Route::put('/user/profile', [ProfileController::class, 'updateProfile']);
-    Route::delete('/user/profile/picture', [ProfileController::class, 'deleteProfilePicture']);
+        Route::get('/user/profile', [ProfileController::class, 'getProfile']);
+        Route::put('/user/profile', [ProfileController::class, 'updateProfile']);
+        Route::delete('/user/profile/picture', [ProfileController::class, 'deleteProfilePicture']);
 
-    // Resource download routes
-    Route::get('/resources/download/{resource}', [ResourceController::class, 'download'])
+        // Resource download routes
+        Route::get('/resources/download/{resource}', [ResourceController::class, 'download'])
         ->name('resources.download');
         
-    Route::get('/resources/stream/{resource}', [ResourceController::class, 'stream'])
+        Route::get('/resources/stream/{resource}', [ResourceController::class, 'stream'])
         ->name('resources.stream');
 
 
@@ -110,6 +110,16 @@ use App\Http\Controllers\CohortsController;
 
         Route::delete('/resources/delete/{id}', [CoursesController::class, 'destroyResource']);
         
+
+        Route::get('/assignments', [AssignmentController::class, 'index']);
+        Route::get('/assignments/{assignment}/download', [AssignmentController::class, 'download']);
+        // Route::post('/assignments/submit', [AssignmentController::class, 'submit']);
+        Route::post('/assignments/{assignment}/submit', [AssignmentController::class, 'submit']);
+    
+        // Instructor-only routes
+        Route::middleware('role:instructor')->group(function () {
+        Route::post('/submissions/{submission}/grade', [AssignmentController::class, 'grade']);
+    });
 
 });
         

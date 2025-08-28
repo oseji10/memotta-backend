@@ -25,6 +25,11 @@ class Courses extends Model
         return $this->hasOne(CohortCourses::class, 'courseId', 'courseId');
     }
 
+      public function cohort_students()
+    {
+        return $this->hasOne(CohortStudents::class, 'courseId', 'courseId');
+    }
+
      public function resources()
     {
         return $this->hasMany(Resources::class, 'courseId', 'courseId');

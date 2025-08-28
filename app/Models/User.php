@@ -11,7 +11,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
+ use HasRoles;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory;
@@ -74,6 +74,50 @@ class User extends Authenticatable implements JWTSubject
       public function application_type()
     {
         return $this->belongsTo(ApplicationType::class, 'applicationType', 'typeId');
+    }
+
+
+     public function role_details()
+    {
+        return $this->belongsTo(Role::class, 'role', 'roleId');
+    }
+
+    /**
+     * Check if user has a specific role
+     */
+    public function hasRole($roleName)
+    {
+        // If passed an array of roles, check if user has any of them
+        if (is_array($roleName)) {
+            return in_array($this->role_details->roleName, $roleName);
+        }
+        
+        // Check for a specific role
+        return $this->role_details->roleName === $roleName;
+    }
+
+    /**
+     * Check if user is an admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('ADMIN');
+    }
+
+    /**
+     * Check if user is an instructor
+     */
+    public function isInstructor(): bool
+    {
+        return $this->hasRole('INSTRUCTOR');
+    }
+
+    /**
+     * Check if user is a student
+     */
+    public function isStudent(): bool
+    {
+        return $this->hasRole('STUDENT');
     }
 
 }
