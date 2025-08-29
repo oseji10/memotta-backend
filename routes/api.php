@@ -116,12 +116,12 @@ use App\Http\Controllers\CohortsController;
         // Route::post('/assignments/submit', [AssignmentController::class, 'submit']);
         Route::post('/assignments/{assignment}/submit', [AssignmentController::class, 'submit']);
     
+        
+                Route::get('/lecture-archives', [LectureArchivesController::class, 'index']);
+                Route::post('/lecture-archives', [LectureArchivesController::class, 'store']);
         // Instructor-only routes
         Route::middleware('role:instructor')->group(function () {
         Route::post('/submissions/{submission}/grade', [AssignmentController::class, 'grade']);
-
-        Route::get('/lecture-archives', [LectureArchivesController::class, 'index']);
-        Route::post('/lecture-archives', [LectureArchivesController::class, 'store']);
     });
 
 });
