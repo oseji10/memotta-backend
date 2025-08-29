@@ -19,7 +19,7 @@ use App\Http\Controllers\ProductRequestController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HubsController;
-use App\Http\Controllers\MSPsController;
+use App\Http\Controllers\LectureArchivesController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\PaymentsController;
@@ -119,6 +119,9 @@ use App\Http\Controllers\CohortsController;
         // Instructor-only routes
         Route::middleware('role:instructor')->group(function () {
         Route::post('/submissions/{submission}/grade', [AssignmentController::class, 'grade']);
+
+        Route::get('/lecture-archives', [LectureArchivesController::class, 'index']);
+        Route::post('/lecture-archives', [LectureArchivesController::class, 'store']);
     });
 
 });
